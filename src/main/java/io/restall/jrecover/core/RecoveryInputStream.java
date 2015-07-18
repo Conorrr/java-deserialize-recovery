@@ -4,11 +4,29 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectStreamConstants;
+import java.lang.Class;
+import java.util.Collections;
 
 /**
- *
+ * Based on Oracle JDK8 java.io.ObjectInputStream
  */
 public class RecoveryInputStream extends InputStream implements ObjectInput, ObjectStreamConstants {
+
+  // Setup
+  // TODO move to builder
+  private Map<String,Class<?>> classMap;
+
+
+  //
+  public RecoveryInputStream()
+  {
+    classMap = Collections.emptyMap();
+  }
+
+  public RecoveryInputStream(Map<String,Class<?>> classMap)
+  {
+    this.classMap = classMap;
+  }
 
   public Object readObject() throws ClassNotFoundException, IOException {
     //TODO
